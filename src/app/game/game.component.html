@@ -1,0 +1,44 @@
+<div class="component">
+
+  <form class="menu"
+        [formGroup]="gameSettings"
+        (ngSubmit)="onSubmit()">
+
+    <mat-form-field>
+      <mat-label>Pick game mode</mat-label>
+      <mat-select
+        formControlName="level"
+        (valueChange)="initChipboardGame($event)">
+        <mat-option
+          *ngFor="let topping of toppingList"
+          [value]="topping">
+          {{topping.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Enter you name" formControlName="name">
+      <mat-error *ngIf="gameSettings.get('name').hasError('required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary"
+            [disabled]="gameSettings.invalid"> {{playAgain ? 'play Again' : 'Play'}}</button>
+  </form>
+
+  <div class="notification" *ngIf="message">
+    <span>{{message}}</span>
+  </div>
+
+  <section class="chipboard" #ChipboardWidth>
+    <div *ngFor="let square of chipboardSquares; let i = index" class="container-item" [attr.data-index]="i"
+         [class.active]="square.active"
+         [class.win]="square.win"
+         [class.losing]="square.losing"
+         (click)="userClickSquare(square)"
+    ></div>
+  </section>
+
+</div>

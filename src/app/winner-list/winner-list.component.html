@@ -1,0 +1,10 @@
+<div class="component">
+  <h2 class="header">Leader board</h2>
+
+  <ul class="list">
+    <li class="list-item" *ngFor="let winnerItem of winnersList$ | async">
+      <span>{{winnerItem.winner}}</span>
+      <span>{{winnerItem.date}}</span>
+    </li>
+  </ul>
+</div>
